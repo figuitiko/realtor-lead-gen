@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Realtor {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leads Lead[]
+}
+
+model Lead {
+  id             String         @id @default(cuid())
+  realtorId      String
+  realtor        Realtor        @relation(fields: [realtorId], references: [id], onDelete: Cascade)
+  name           String
+  email          String
+  phone          String
+  intent         LeadIntent
+  budget         LeadBudget
+  timeline       LeadTimeline
+  financing      LeadFinancing
+  score          Int
+  status         LeadStatus
+  followUpStatus FollowUpStatus @default(NEW)
+  source         String?
+  notes          String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([realtorId])
+  @@index([status])
+  @@index([followUpStatus])
+  @@index([createdAt])
+}
+
+enum LeadIntent {
+  LIVE
+  INVEST
+}
+
+enum LeadBudget {
+  BUDGET_300K_500K
+  BUDGET_500K_1M
+  BUDGET_1M_PLUS
+}
+
+enum LeadTimeline {
+  ZERO_TO_THREE_MONTHS
+  THREE_TO_SIX_MONTHS
+  EXPLORING
+}
+
+enum LeadFinancing {
+  APPROVED_FINANCING
+  NEED_FINANCING
+  CASH
+  NOT_SURE
+}
+
+enum LeadStatus {
+  HOT
+  WARM
+  COLD
+}
+
+enum FollowUpStatus {
+  NEW
+  CONTACTED
+  APPOINTMENT_SCHEDULED
+  NOT_QUALIFIED
+  CLOSED
+}
