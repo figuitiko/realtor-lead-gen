@@ -51,7 +51,11 @@ interface ContactErrors {
   phone?: string;
 }
 
-export function QualificationFlow() {
+interface QualificationFlowProps {
+  realtorSlug: string;
+}
+
+export function QualificationFlow({ realtorSlug }: QualificationFlowProps) {
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<QualificationAnswers>({});
   const [contact, setContact] = useState<ContactData>({ name: "", email: "", phone: "" });
@@ -101,6 +105,7 @@ export function QualificationFlow() {
     if (!validateContact()) return;
 
     const formData = new FormData();
+    formData.append("realtorSlug", realtorSlug);
     formData.append("name", contact.name);
     formData.append("email", contact.email);
     formData.append("phone", contact.phone);

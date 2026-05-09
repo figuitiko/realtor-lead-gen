@@ -1,5 +1,4 @@
 import type {
-  CreateLeadInput,
   LeadBudget,
   LeadFinancing,
   LeadIntent,
@@ -15,7 +14,14 @@ export interface MessagingProvider {
   sendMessage(payload: MessagePayload): Promise<void>;
 }
 
-export interface LeadMessageInput extends CreateLeadInput {
+export interface LeadMessageInput {
+  name: string;
+  email: string;
+  phone: string;
+  intent: LeadIntent;
+  budget: LeadBudget;
+  timeline: LeadTimeline;
+  financing: LeadFinancing;
   score: number;
   createdAt: Date;
 }

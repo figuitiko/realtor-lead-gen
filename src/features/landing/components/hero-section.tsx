@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, MapPin } from "lucide-react";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  qualifyHref?: string;
+}
+
+export function HeroSection({ qualifyHref = "/qualify" }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
@@ -37,7 +41,7 @@ export function HeroSection() {
               size="lg"
               className="bg-amber-400 text-slate-900 hover:bg-amber-300 font-semibold px-8"
             >
-              <Link href="/qualify">
+              <Link href={qualifyHref}>
                 Start My Property Match
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

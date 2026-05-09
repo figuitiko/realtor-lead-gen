@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createLeadSchema, updateFollowUpSchema } from "@/features/lead-capture/schemas/lead.schema";
 import { scoreLead } from "@/features/lead-scoring/score-lead";
-import { createLead, getDefaultRealtor, updateLeadFollowUp } from "@/lib/server-only/lead.repository";
+import { createLead, getRealtorBySlug, updateLeadFollowUp } from "@/lib/server-only/lead.repository";
 import { sendHotLeadMessage } from "@/features/messaging/send-message";
 import type { ActionResult } from "@/features/lead-capture/types/lead.types";
 
@@ -22,9 +22,9 @@ export async function createLeadAction(
     };
   }
 
-  const realtor = await getDefaultRealtor();
+  const realtor = await getRealtorBySlug(parsed.data.realtorSlug);
   if (!realtor) {
-    return { ok: false, error: "Configuration error. Please try again later." };
+    return { ok: false, error: "Invalid realtor link. Please check the URL and try again." };
   }
 
   const { score, status } = scoreLead({

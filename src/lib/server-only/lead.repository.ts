@@ -1,7 +1,10 @@
 import "server-only";
 import { db } from "@/lib/db";
 import type { CreateLeadInput, UpdateLeadFollowUpInput } from "@/features/lead-capture/types/lead.types";
+import { DEFAULT_REALTOR_SLUG } from "@/features/realtors/constants";
 import type { LeadStatus, FollowUpStatus } from "@prisma/client";
+
+export { DEFAULT_REALTOR_SLUG };
 
 export async function createLead(data: CreateLeadInput & { realtorId: string; score: number; status: LeadStatus }) {
   return db.lead.create({
@@ -37,9 +40,12 @@ export async function getLeads(filters?: {
   });
 }
 
-export async function getLeadById(id: string) {
-  return db.lead.findUnique({
-    where: { id },
+export async function getLeadById(id: string, realtorId?: string) {
+  return db.lead.findFirst({
+    where: {
+      id,
+      ...(realtorId && { realtorId }),
+    },
     include: { realtor: true },
   });
 }
@@ -69,7 +75,11 @@ export async function getDashboardStats(realtorId?: string) {
 }
 
 export async function getDefaultRealtor() {
-  return db.realtor.findFirst({
-    orderBy: { createdAt: "asc" },
+  return getRealtorBySlug(DEFAULT_REALTOR_SLUG);
+}
+
+export async function getRealtorBySlug(slug: string) {
+  return db.realtor.findUnique({
+    where: { slug },
   });
 }

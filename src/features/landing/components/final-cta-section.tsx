@@ -2,7 +2,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield } from "lucide-react";
 
-export function FinalCtaSection() {
+interface FinalCtaSectionProps {
+  qualifyHref?: string;
+}
+
+export function FinalCtaSection({ qualifyHref = "/qualify" }: FinalCtaSectionProps) {
   return (
     <section className="bg-slate-900 py-20 text-white">
       <div className="container text-center">
@@ -20,7 +24,7 @@ export function FinalCtaSection() {
             size="lg"
             className="bg-amber-400 text-slate-900 hover:bg-amber-300 font-semibold px-10"
           >
-            <Link href="/qualify">
+            <Link href={qualifyHref}>
               Start My Property Match
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

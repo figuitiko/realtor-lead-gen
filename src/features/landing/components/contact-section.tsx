@@ -2,7 +2,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, Shield } from "lucide-react";
 
-export function ContactSection() {
+interface ContactSectionProps {
+  qualifyHref?: string;
+}
+
+export function ContactSection({ qualifyHref = "/qualify" }: ContactSectionProps) {
   return (
     <section className="py-20">
       <div className="container">
@@ -20,13 +24,13 @@ export function ContactSection() {
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button asChild size="lg" className="font-semibold px-8">
-              <Link href="/qualify">Schedule a Call</Link>
+              <Link href={qualifyHref}>Schedule a Call</Link>
             </Button>
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground">
             Or{" "}
-            <Link href="/qualify" className="underline underline-offset-4 hover:text-foreground">
+            <Link href={qualifyHref} className="underline underline-offset-4 hover:text-foreground">
               start the online qualification
             </Link>{" "}
             — takes 5 minutes.

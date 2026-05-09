@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LeadsTable } from "@/features/dashboard/components/leads-table";
 import { LeadFilters } from "@/features/dashboard/components/lead-filters";
-import { getLeads, getDashboardStats } from "@/lib/server-only/lead.repository";
+import { getLeads, getDashboardStats, getDefaultRealtor } from "@/lib/server-only/lead.repository";
 import { Flame, Thermometer, Snowflake, Users } from "lucide-react";
 import type { LeadStatus, FollowUpStatus } from "@prisma/client";
 
@@ -14,10 +14,12 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const params = await searchParams;
   const statusFilter = params.status as LeadStatus | undefined;
   const followUpFilter = params.followUp as FollowUpStatus | undefined;
+  const defaultRealtor = await getDefaultRealtor();
+  const defaultRealtorId = defaultRealtor?.id ?? "__missing_default_realtor__";
 
   const [leads, stats] = await Promise.all([
-    getLeads({ status: statusFilter, followUpStatus: followUpFilter }),
-    getDashboardStats(),
+    getLeads({ status: statusFilter, followUpStatus: followUpFilter, realtorId: defaultRealtorId }),
+    getDashboardStats(defaultRealtorId),
   ]);
 
   return (

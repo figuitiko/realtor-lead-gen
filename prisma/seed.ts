@@ -3,6 +3,7 @@ import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import ws from "ws";
+import { DEFAULT_REALTOR_SLUG } from "../src/features/realtors/constants";
 
 neonConfig.webSocketConstructor = ws;
 
@@ -23,13 +24,17 @@ async function main() {
   });
 
   const realtor = await prisma.realtor.upsert({
-    where: { slug: "miami-premier" },
-    update: {},
+    where: { slug: DEFAULT_REALTOR_SLUG },
+    update: {
+      name: "Miami Premier Realty",
+      email: "contact@miamipremier.com",
+      phone: "+1-305-555-0100",
+    },
     create: {
       name: "Miami Premier Realty",
       email: "contact@miamipremier.com",
       phone: "+1-305-555-0100",
-      slug: "miami-premier",
+      slug: DEFAULT_REALTOR_SLUG,
     },
   });
 

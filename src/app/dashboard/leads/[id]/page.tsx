@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LeadDetailCard } from "@/features/dashboard/components/lead-detail-card";
 import { LeadNotesForm } from "@/features/dashboard/components/lead-notes-form";
-import { getLeadById } from "@/lib/server-only/lead.repository";
+import { getDefaultRealtor, getLeadById } from "@/lib/server-only/lead.repository";
 import { ArrowLeft } from "lucide-react";
 
 interface LeadDetailPageProps {
@@ -12,7 +12,10 @@ interface LeadDetailPageProps {
 
 export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
   const { id } = await params;
-  const lead = await getLeadById(id);
+  const defaultRealtor = await getDefaultRealtor();
+  if (!defaultRealtor) notFound();
+
+  const lead = await getLeadById(id, defaultRealtor.id);
 
   if (!lead) notFound();
 

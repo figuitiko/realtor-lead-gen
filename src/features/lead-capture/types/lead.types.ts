@@ -11,6 +11,7 @@ export type FollowUpStatus =
   | "CLOSED";
 
 export interface CreateLeadInput {
+  realtorSlug: string;
   name: string;
   email: string;
   phone: string;
