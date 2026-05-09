@@ -130,3 +130,12 @@ NEXTAUTH_URL="http://localhost:3000"
 ## Docs / Plans
 
 Architecture plans and phase docs live in `docs/` inside the project root (e.g. `docs/phase-2-improve-landing.md`).
+
+
+<claude-mem-context>
+# Memory Context
+
+# [realtor] recent context, 2026-05-08 9:45pm CST
+
+No previous sessions found.
+</claude-mem-context>
