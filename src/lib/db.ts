@@ -7,16 +7,36 @@ neonConfig.webSocketConstructor = ws;
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
+  prismaDatabaseUrl: string | undefined;
 };
 
-function createPrismaClient() {
-  const adapter = new PrismaNeon({ connectionString: env("DATABASE_URL") });
+function getDatabaseUrl() {
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL environment variable is required");
+  }
+
+  return databaseUrl;
+}
+
+function createPrismaClient(databaseUrl: string) {
+  const adapter = new PrismaNeon({ connectionString: databaseUrl });
   return new PrismaClient({
     adapter,
     log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
   });
 }
 
-export const db = globalForPrisma.prisma ?? createPrismaClient();
+const databaseUrl = getDatabaseUrl();
+const shouldReusePrismaClient =
+  globalForPrisma.prisma && globalForPrisma.prismaDatabaseUrl === databaseUrl;
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+export const db = shouldReusePrismaClient
+  ? globalForPrisma.prisma!
+  : createPrismaClient(databaseUrl);
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = db;
+  globalForPrisma.prismaDatabaseUrl = databaseUrl;
+}
