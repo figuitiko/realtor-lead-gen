@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createLeadSchema, updateFollowUpSchema } from "@/features/lead-capture/schemas/lead.schema";
 import { scoreLead } from "@/features/lead-scoring/score-lead";
 import { createLead, getDefaultRealtor, updateLeadFollowUp } from "@/lib/server-only/lead.repository";
-import { notifyHotLead } from "@/lib/server-only/notifications";
+import { sendHotLeadMessage } from "@/features/messaging/send-message";
 import type { ActionResult } from "@/features/lead-capture/types/lead.types";
 
 export async function createLeadAction(
@@ -41,12 +41,21 @@ export async function createLeadAction(
   });
 
   if (status === "HOT") {
-    await notifyHotLead({
-      name: lead.name,
-      email: lead.email,
-      phone: lead.phone,
-      score: lead.score,
-    });
+    try {
+      await sendHotLeadMessage({
+        name: lead.name,
+        phone: lead.phone,
+        email: lead.email,
+        intent: lead.intent,
+        budget: lead.budget,
+        timeline: lead.timeline,
+        financing: lead.financing,
+        score: lead.score,
+        createdAt: lead.createdAt,
+      });
+    } catch (error) {
+      console.error("[Messaging] Failed to notify HOT lead", error);
+    }
   }
 
   redirect("/thank-you");
