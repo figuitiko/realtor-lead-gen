@@ -135,18 +135,19 @@ Architecture plans and phase docs live in `docs/` inside the project root (e.g. 
 <claude-mem-context>
 # Memory Context
 
-# [realtor] recent context, 2026-05-08 10:36pm CST
+# [realtor] recent context, 2026-05-11 10:03pm CST
 
 Legend: 🎯session 🔴bugfix 🟣feature 🔄refactor ✅change 🔵discovery ⚖️decision
 Format: ID TIME TYPE TITLE
 Fetch details: get_observations([IDs]) | Search: mem-search skill
 
-Stats: 3 obs (1,089t read) | 69,210t work | 98% savings
+Stats: 4 obs (1,357t read) | 70,118t work | 98% savings
 
 ### May 8, 2026
 234 10:33p 🔵 Prisma v7 + Neon adapter — DATABASE_URL not reaching PrismaClient at runtime
 236 10:36p 🔵 realtor — @prisma/client re-exports from generated .prisma/client/default
 237 " 🔴 realtor — added postinstall prisma generate to fix Vercel build failure
+240 10:44p ✅ realtor — upgraded eslint to v9, removed @types/bcryptjs to fix Vercel build warnings
 
-Access 69k tokens of past work via get_observations([IDs]) or mem-search skill.
+Access 70k tokens of past work via get_observations([IDs]) or mem-search skill.
 </claude-mem-context>
