@@ -15,30 +15,28 @@ export function ContactSection({ qualifyHref = "/qualify" }: ContactSectionProps
             <Phone className="h-6 w-6 text-primary" />
           </div>
           <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-            Prefer to Talk Before You Start?
+            Want a quick conversation before you qualify?
           </h2>
+          <p className="mb-3 text-muted-foreground">
+            Start with the form if you want the fastest response.
+          </p>
           <p className="mb-8 text-muted-foreground">
-            Book a free 15-minute call. No pressure, no pitch.
-            English or Spanish — you choose.
+            If you prefer to talk first, use the same short intake and we&apos;ll reach out with the right next step.
           </p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button asChild size="lg" className="font-semibold px-8">
-              <Link href={qualifyHref}>Schedule a Call</Link>
+            <Button asChild size="lg" className="px-8 font-semibold">
+              <Link href={qualifyHref}>Start the qualification</Link>
             </Button>
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground">
-            Or{" "}
-            <Link href={qualifyHref} className="underline underline-offset-4 hover:text-foreground">
-              start the online qualification
-            </Link>{" "}
-            — takes 5 minutes.
+            We review budget, timing, and financing first so the conversation stays productive.
           </p>
 
           <p className="mt-6 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
             <Shield className="h-3.5 w-3.5" />
-            100% confidential. We never share your data.
+            Private inquiry. No spam, no public sharing, no wasted calls.
           </p>
         </div>
       </div>

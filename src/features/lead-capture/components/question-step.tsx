@@ -12,6 +12,7 @@ interface Option {
 interface QuestionStepProps {
   question: string;
   subtitle?: string;
+  helperText?: string;
   options: Option[];
   selectedValue?: string;
   onSelect: (value: string) => void;
@@ -20,15 +21,21 @@ interface QuestionStepProps {
 export function QuestionStep({
   question,
   subtitle,
+  helperText,
   options,
   selectedValue,
   onSelect,
 }: QuestionStepProps) {
   return (
     <div className="space-y-6">
-      <div>
+      <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight md:text-2xl">{question}</h2>
-        {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+        {subtitle && <p className="text-sm text-muted-foreground md:text-base">{subtitle}</p>}
+        {helperText && (
+          <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900 sm:text-sm">
+            {helperText}
+          </p>
+        )}
       </div>
 
       <div className="grid gap-3">

@@ -31,21 +31,28 @@ export function LeadNotesForm({ lead }: LeadNotesFormProps) {
     startTransition(async () => {
       const result = await updateLeadFollowUpAction(INITIAL_STATE, formData);
       if (result.ok) {
-        toast.success("Lead updated successfully");
+        toast.success("Lead updated", {
+          description: "Follow-up status and notes were saved for the next conversation.",
+        });
       } else {
-        toast.error(result.error || "Failed to update lead");
+        toast.error(result.error || "We couldn’t save those changes.", {
+          description: "Try again in a moment. Your current notes are still here.",
+        });
       }
     });
   }
 
   return (
-    <Card>
+    <Card className="shadow-sm">
       <CardHeader>
-        <CardTitle className="text-base">Follow-up & Notes</CardTitle>
+        <CardTitle className="text-base">Follow-up plan</CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Keep the next action obvious so this lead never gets lost after the demo.
+        </p>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-1.5">
-          <Label>Follow-up Status</Label>
+          <Label>Follow-up status</Label>
           <FollowUpStatusSelect
             value={followUpStatus}
             onChange={setFollowUpStatus}
@@ -57,24 +64,27 @@ export function LeadNotesForm({ lead }: LeadNotesFormProps) {
           <Label htmlFor="notes">Notes</Label>
           <Textarea
             id="notes"
-            placeholder="Add notes about this lead..."
+            placeholder="Example: Buyer is flying in next week, wants Brickell condos, prefers WhatsApp after 4 PM."
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             disabled={isPending}
-            rows={4}
+            rows={6}
           />
+          <p className="text-xs text-muted-foreground">
+            Capture objections, preferred neighborhoods, or the exact next step for the handoff.
+          </p>
         </div>
 
         <Button onClick={handleSubmit} disabled={isPending} className="w-full">
           {isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Saving...
+              Saving updates...
             </>
           ) : (
             <>
               <Save className="mr-2 h-4 w-4" />
-              Save Changes
+              Save follow-up notes
             </>
           )}
         </Button>

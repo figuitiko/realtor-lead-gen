@@ -26,12 +26,12 @@ export default async function RealtorQualifyPage({ params }: RealtorQualifyPageP
       <SiteHeader homeHref={homeHref} qualifyHref={`${homeHref}/qualify`} />
       <main className="min-h-screen bg-muted/30 py-12">
         <div className="container">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold tracking-tight">
-              Let&apos;s See If We&apos;re a Good Fit
+          <div className="mx-auto mb-8 max-w-2xl text-center">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Let&apos;s see how ready this opportunity is.
             </h1>
-            <p className="mt-2 text-muted-foreground">
-              Answer 4 quick questions. Takes less than 2 minutes.
+            <p className="mt-3 text-muted-foreground sm:text-base">
+              Four short qualification questions and one contact step. We use your answers to prioritize serious Miami buyers and prepare the right follow-up.
             </p>
           </div>
 

@@ -11,12 +11,13 @@ export function QualificationProgress({ currentStep, totalSteps }: Qualification
   const progress = Math.round((currentStep / totalSteps) * 100);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <div className="flex items-center justify-between text-sm">
-        <span className="text-muted-foreground">
-          Step {currentStep} of {totalSteps}
-        </span>
-        <span className="font-medium text-primary">{progress}%</span>
+        <div>
+          <p className="font-medium text-foreground">Step {currentStep} of {totalSteps}</p>
+          <p className="text-xs text-muted-foreground">Short answers now help us prioritize the right follow-up later.</p>
+        </div>
+        <span className="font-semibold text-primary">{progress}%</span>
       </div>
       <Progress value={progress} className="h-2" />
     </div>

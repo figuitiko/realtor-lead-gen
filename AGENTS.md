@@ -131,11 +131,17 @@ NEXTAUTH_URL="http://localhost:3000"
 
 Architecture plans and phase docs live in `docs/` inside the project root (e.g. `docs/phase-2-improve-landing.md`).
 
+## Skills
+
+| Skill | Description | Reference |
+|-------|-------------|-----------|
+| `plan-doc-review` | After a plan is created, ask to save it into `docs/` for review before implementation starts. | [SKILL.md](skills/plan-doc-review/SKILL.md) |
+
 
 <claude-mem-context>
 # Memory Context
 
-# [realtor] recent context, 2026-05-11 10:03pm CST
+# [realtor] recent context, 2026-05-11 10:16pm CST
 
 Legend: 🎯session 🔴bugfix 🟣feature 🔄refactor ✅change 🔵discovery ⚖️decision
 Format: ID TIME TYPE TITLE

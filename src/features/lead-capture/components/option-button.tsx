@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface OptionButtonProps {
@@ -16,30 +17,32 @@ export function OptionButton({ label, description, selected, onClick, icon }: Op
       type="button"
       onClick={onClick}
       className={cn(
-        "w-full rounded-xl border-2 p-4 text-left transition-all duration-150",
-        "hover:border-primary hover:bg-primary/5",
+        "group w-full rounded-2xl border p-4 text-left transition-all duration-150 sm:p-5",
+        "hover:-translate-y-0.5 hover:border-primary hover:bg-primary/5 hover:shadow-sm",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30",
         selected
-          ? "border-primary bg-primary/10 ring-2 ring-primary/20"
+          ? "border-primary bg-primary/10 shadow-sm ring-2 ring-primary/15"
           : "border-border bg-card"
       )}
+      aria-pressed={selected}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-start gap-3">
         {icon && (
-          <div className={cn("text-2xl", selected && "scale-110 transition-transform")}>
+          <div className={cn("pt-0.5 text-2xl transition-transform", selected && "scale-110")}>
             {icon}
           </div>
         )}
-        <div>
+        <div className="min-w-0 flex-1">
           <div className={cn("font-medium", selected && "text-primary")}>{label}</div>
           {description && (
-            <div className="text-sm text-muted-foreground">{description}</div>
+            <div className="mt-1 text-sm leading-6 text-muted-foreground">{description}</div>
           )}
         </div>
-        <div className="ml-auto">
-          <div
+        <div className="pt-0.5">
+          <CheckCircle2
             className={cn(
-              "h-4 w-4 rounded-full border-2 transition-colors",
-              selected ? "border-primary bg-primary" : "border-muted-foreground"
+              "h-5 w-5 transition-colors",
+              selected ? "text-primary" : "text-muted-foreground/40 group-hover:text-primary/60"
             )}
           />
         </div>

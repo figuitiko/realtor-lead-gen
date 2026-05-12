@@ -1,29 +1,22 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Loading() {
+export default function RealtorLandingLoading() {
   return (
     <div className="min-h-screen bg-background">
       <div className="border-b border-border/50 bg-background/95">
         <div className="container flex h-16 items-center justify-between">
-          <div className="space-y-2">
-            <Skeleton className="h-5 w-36" />
-            <Skeleton className="h-2 w-16" />
-          </div>
+          <Skeleton className="h-8 w-32" />
           <Skeleton className="h-9 w-32" />
         </div>
       </div>
 
       <main className="container space-y-8 py-10">
-        <div className="grid gap-4 md:grid-cols-2">
+        <Skeleton className="h-[420px] rounded-3xl" />
+        <div className="grid gap-6 md:grid-cols-2">
           <Skeleton className="h-64 rounded-3xl" />
           <Skeleton className="h-64 rounded-3xl" />
         </div>
-        <Skeleton className="h-40 rounded-3xl" />
-        <div className="grid gap-4 md:grid-cols-3">
-          <Skeleton className="h-36 rounded-2xl" />
-          <Skeleton className="h-36 rounded-2xl" />
-          <Skeleton className="h-36 rounded-2xl" />
-        </div>
+        <Skeleton className="h-72 rounded-3xl" />
       </main>
     </div>
   );

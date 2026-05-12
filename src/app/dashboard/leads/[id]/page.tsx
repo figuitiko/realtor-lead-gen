@@ -21,18 +21,20 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <Button asChild variant="ghost" size="sm">
           <Link href="/dashboard">
             <ArrowLeft className="mr-1 h-4 w-4" />
-            Back to Dashboard
+            Back to dashboard
           </Link>
         </Button>
       </div>
 
-      <div>
+      <div className="space-y-2">
         <h1 className="text-2xl font-bold tracking-tight">{lead.name}</h1>
-        <p className="text-muted-foreground text-sm">Lead submitted via qualification funnel</p>
+        <p className="max-w-2xl text-sm text-muted-foreground">
+          This detail view is built for demos and real follow-up: understand the buyer quickly, then capture the next action before moving on.
+        </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">

@@ -14,6 +14,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const params = await searchParams;
   const statusFilter = params.status as LeadStatus | undefined;
   const followUpFilter = params.followUp as FollowUpStatus | undefined;
+  const hasFilters = Boolean(statusFilter || followUpFilter);
   const defaultRealtor = await getDefaultRealtor();
   const defaultRealtorId = defaultRealtor?.id ?? "__missing_default_realtor__";
 
@@ -24,20 +25,22 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Leads</h1>
-        <p className="text-muted-foreground">Manage and track your qualified leads.</p>
+      <div className="space-y-2">
+        <h1 className="text-2xl font-bold tracking-tight">Lead dashboard</h1>
+        <p className="max-w-2xl text-muted-foreground">
+          Review the default demo funnel for {defaultRealtor?.name ?? "Miami Premier Realty"}. This is where hot buyers rise to the top and the follow-up plan stays visible.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total Leads</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total leads</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.total}</div>
-            <p className="text-xs text-muted-foreground">{stats.newLeads} new</p>
+            <p className="text-xs text-muted-foreground">{stats.newLeads} waiting for first outreach</p>
           </CardContent>
         </Card>
 
@@ -48,7 +51,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">{stats.hot}</div>
-            <p className="text-xs text-muted-foreground">Score 80+</p>
+            <p className="text-xs text-muted-foreground">Ready to move now</p>
           </CardContent>
         </Card>
 
@@ -59,7 +62,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-amber-600">{stats.warm}</div>
-            <p className="text-xs text-muted-foreground">Score 50–79</p>
+            <p className="text-xs text-muted-foreground">Worth nurturing</p>
           </CardContent>
         </Card>
 
@@ -70,7 +73,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">{stats.cold}</div>
-            <p className="text-xs text-muted-foreground">Score &lt;50</p>
+            <p className="text-xs text-muted-foreground">Early-stage or underqualified</p>
           </CardContent>
         </Card>
       </div>
@@ -81,7 +84,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         </Suspense>
       </div>
 
-      <LeadsTable leads={leads} />
+      <LeadsTable leads={leads} hasFilters={hasFilters} />
     </div>
   );
 }

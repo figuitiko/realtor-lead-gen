@@ -1,29 +1,38 @@
 # Miami Premier Realty — Lead Funnel
 
-Premium AI-powered lead qualification funnel for a Miami real estate agent. Captures, scores, and manages serious buyer/investor leads.
+Demo-ready lead qualification funnel for a Miami realtor. The app captures inbound buyers, scores them as HOT / WARM / COLD, and gives the team a clean dashboard for follow-up.
 
 ## Features
 
-- Public landing page with qualification CTA
-- Conversational 5-step lead qualification flow
-- Automated lead scoring (HOT / WARM / COLD)
-- Protected admin dashboard with filters
-- Lead detail view with notes and follow-up status
-- Admin auth via NextAuth v5 credentials
+- Multi-realtor-ready public funnel using realtor slugs
+- Qualification flow that captures intent, budget, timeline, and financing
+- Automatic lead scoring (HOT / WARM / COLD)
+- Protected admin dashboard with filters, notes, and follow-up statuses
+- HOT lead messaging abstraction (console provider by default)
+- Realistic demo seed data for presentations and walkthroughs
 
 ## Tech Stack
 
-Next.js 15 · TypeScript · Tailwind CSS · shadcn/ui · Prisma · PostgreSQL · NextAuth v5 · Zod · Vitest
+- Next.js 16 App Router
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui (manual setup)
+- Prisma 7 + PostgreSQL
+- NextAuth v5 beta
+- Zod v4
+- React 19 + react-hook-form v7
+- Vitest v4
+- sonner v2
 
 ## Setup
 
-### 1. Clone and install
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Environment
+### 2. Configure environment variables
 
 ```bash
 cp env.example .env
@@ -37,38 +46,46 @@ NEXTAUTH_SECRET="run: openssl rand -base64 32"
 NEXTAUTH_URL="http://localhost:3000"
 ```
 
-### 3. Database
+### 3. Prepare the database
 
 ```bash
-npm run db:push      # push schema to DB
-npm run db:seed      # create default realtor + admin + sample leads
+npm run db:push
+npm run db:seed
 ```
 
-### 4. Run
+The seed creates:
+- default admin user
+- default realtor: `demo-realtor`
+- 15 realistic demo leads
+  - 5 HOT
+  - 5 WARM
+  - 5 COLD
+
+### 4. Start the app
 
 ```bash
 npm run dev
 ```
 
-## Admin Credentials (seed)
+## Admin Credentials
 
 | Field | Value |
 |-------|-------|
 | Email | admin@miamirealtor.com |
 | Password | admin123 |
 
-**Change the password after first login.**
-
 ## Routes
 
 | Route | Description |
 |-------|-------------|
-| `/` | Landing page |
-| `/qualify` | Lead qualification flow |
+| `/` | Redirects to the default realtor landing |
+| `/qualify` | Redirects to the default realtor qualification flow |
+| `/r/demo-realtor` | Demo landing page |
+| `/r/demo-realtor/qualify` | Demo qualification flow |
 | `/thank-you` | Post-submission confirmation |
 | `/login` | Admin login |
 | `/dashboard` | Lead list with stats + filters |
-| `/dashboard/leads/[id]` | Lead detail + notes |
+| `/dashboard/leads/[id]` | Lead detail with notes + follow-up |
 
 ## Lead Scoring
 
@@ -91,16 +108,18 @@ npm run dev
 
 ```bash
 npm run dev          # start dev server
-npm run test:run     # run unit tests (scoring function)
+npm run test:run     # run unit tests
+npm run db:push      # push Prisma schema
+npm run db:seed      # seed demo admin, realtor, and 15 demo leads
 npm run db:studio    # open Prisma Studio
-npm run db:seed      # reseed database
+npm run db:generate  # regenerate Prisma client
 ```
 
 ## Demo Flow
 
-1. Visit `/` → click "See If I Qualify"
-2. Complete 5-step qualification
-3. Submit → redirected to `/thank-you`
-4. Login at `/login` with seed credentials
-5. View lead in `/dashboard`
-6. Click lead → update follow-up status and notes
+1. Open the landing page at `/r/demo-realtor`.
+2. Explain the filtering strategy: budget, timeline, and financing determine how serious the buyer is.
+3. Complete the qualification flow as a hot lead.
+4. Show the dashboard and point out the HOT / WARM / COLD segmentation.
+5. Open a lead detail page.
+6. Update the follow-up status and notes to show the handoff workflow.
